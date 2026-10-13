@@ -25,7 +25,7 @@ which needs no API key and covers both stocks (`AAPL`, `VNM.VN`) and crypto
 The mod sends HTTPS requests from `explorer.exe` to the URL set in **Price API URL**.
 By default that is `query1.finance.yahoo.com`. It sends one request per symbol (up to
 4) at startup, then once every **Refresh interval** (default 60 seconds). Each request
-uses the User-Agent `CoinStockMonitor/1.1 (Windhawk mod)`. No other data is sent. To
+identifies the mod by name in its User-Agent header. No other data is sent. To
 stop all requests, disable the mod.
 
 ## Requirements
