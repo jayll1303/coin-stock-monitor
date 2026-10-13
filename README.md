@@ -20,6 +20,14 @@ which needs no API key and covers both stocks (`AAPL`, `VNM.VN`) and crypto
   Prices at or above the entry use the gain color, and prices below use the loss color.
 - Left or right text alignment, text color, gain and loss colors, offset, and width.
 
+## Network access
+
+The mod sends HTTPS requests from `explorer.exe` to the URL set in **Price API URL**.
+By default that is `query1.finance.yahoo.com`. It sends one request per symbol (up to
+4) at startup, then once every **Refresh interval** (default 60 seconds). Each request
+uses the User-Agent `CoinStockMonitor/1.1 (Windhawk mod)`. No other data is sent. To
+stop all requests, disable the mod.
+
 ## Requirements
 
 - Windows 11, with a horizontal taskbar on the primary monitor.
