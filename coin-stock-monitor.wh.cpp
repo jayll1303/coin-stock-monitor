@@ -5,6 +5,7 @@
 // @version         1.0.0
 // @author          jayll1303
 // @github          https://github.com/jayll1303
+// @license         MIT
 // @include         explorer.exe
 // @architecture    x86-64
 // @compilerOptions -lgdi32 -luser32 -lwinhttp
@@ -13,6 +14,8 @@
 // ==WindhawkModReadme==
 /*
 # Coin & Stock Monitor
+
+![Taskbar screenshot](https://raw.githubusercontent.com/jayll1303/coin-stock-monitor/main/docs/screenshot.png)
 
 Shows live stock and crypto prices on the left side of the taskbar.
 

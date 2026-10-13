@@ -1,5 +1,7 @@
 # Coin & Stock Monitor
 
+![Coin & Stock Monitor on the Windows 11 taskbar](docs/screenshot.png)
+
 A [Windhawk](https://windhawk.net) mod that shows live stock and crypto prices on the
 left side of the Windows 11 taskbar. Each symbol can show its entry price, with the
 signed percentage change and a green or red color.
