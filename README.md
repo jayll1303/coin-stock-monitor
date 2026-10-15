@@ -48,7 +48,7 @@ stop all requests, disable the mod.
 | Price API URL | Yahoo Finance chart URL | Requested once per symbol. `{symbol}` is replaced with the URL-encoded symbol. |
 | Price JSON key | `regularMarketPrice` | The key whose numeric value is the price in the response. |
 | Symbols | `BTC-USD\|ETH-USD\|AAPL` | Separated by `\|`, in order. At most 4 symbols, 2 per line. |
-| Entry prices | empty | `SYMBOL=PRICE` pairs separated by `\|`, for example `BTC-USD=60000\|AAPL=300`. Use `.` as the decimal separator; commas are ignored, so `12,005` means `12005`. |
+| Entry prices | empty | `SYMBOL=PRICE` pairs separated by `\|`, for example `BTC-USD=60000\|AAPL=300`. Use `.` as the decimal separator. A comma is accepted only as a thousands separator, followed by exactly three digits, so `12,005` means `12005` and `0,45` is rejected. Lists saved with commas by older versions still work. |
 | Text alignment | left | Aligns the text inside the monitor area. |
 | Text color | `#19FF00` | Color for symbols and prices without an entry price. Leave empty to follow the taskbar theme. |
 | Gain color | `#00A850` | Color for prices and percentages at or above their entry price. |
