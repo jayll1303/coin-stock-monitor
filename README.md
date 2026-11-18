@@ -54,12 +54,19 @@ stop all requests, disable the mod.
 | Color preset | Custom (Slate colors) | Preserves saved custom colors on upgrade. Named presets: Slate, Charcoal, Warm Graphite, Blue / Amber (dark taskbars), and Porcelain (light taskbars). |
 | Custom colors | Existing color values | Text, gain, and loss colors used when Color preset is Custom. Existing values remain active after upgrading because Custom is the default. Avoid `#FF00FF` in Transparent mode. |
 | Background mode | Transparent | Select Solid to give the monitor its own opaque background. |
-| Custom background color | `#1E2633` | Used with Custom in Solid mode. Named presets use their matching backgrounds. Fills the monitor width and full taskbar height. |
+| Background sizing | Monitor area | In Solid mode, Fit text shrinks the background to the longest line and text height with padding (8px horizontally, 3px vertically at 100% scaling). Keeps the configured left/right alignment and updates with prices. |
+| Custom background color | `#1E2633` | Used with Custom in Solid mode. Named presets use their matching backgrounds. Fills the area selected by Background sizing. |
 | Left offset | 8 | Distance from the left edge of the taskbar, in pixels at 100% scaling. |
 | Monitor width | 480 | Width of the monitor area, in pixels at 100% scaling. The area grows if the text is wider. |
 | Refresh interval | 60 | Seconds between fetches. Values below 15 are raised to 15. |
 
 Changing any setting reloads the mod.
+
+For a compact background, select **Background mode → Solid** and **Background
+sizing → Fit text**. The background hugs both text lines as one rectangle.
+**Monitor width** still defines the alignment area: left alignment keeps the left
+edge fixed, while right alignment keeps the right edge fixed. The height is
+centered and limited to the taskbar height. Transparent mode ignores this setting.
 
 ### Transparent taskbar themes (DockLike)
 
