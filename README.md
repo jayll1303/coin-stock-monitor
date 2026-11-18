@@ -44,48 +44,90 @@ stop all requests, disable the mod.
 
 ## Settings
 
-| Setting | Default | What it does |
+The settings form has four groups instead of a flat list. Windhawk 1.7.3 renders
+these as separate cards; newer UI behavior can vary. No conditional hiding or
+collapsing is assumed.
+
+| Group | Settings | When to change |
 | --- | --- | --- |
-| Price API URL | Yahoo Finance chart URL | Requested once per symbol. `{symbol}` is replaced with the URL-encoded symbol. |
-| Price JSON key | `regularMarketPrice` | The key whose numeric value is the price in the response. |
-| Symbols | `BTC-USD\|ETH-USD\|AAPL` | Separated by `\|`, in order. At most 4 symbols, 2 per line. |
-| Entry prices | empty | `SYMBOL=PRICE` pairs separated by `\|`, for example `BTC-USD=60000\|AAPL=300`. Use `.` as the decimal separator. A comma is accepted only as a thousands separator, followed by exactly three digits, so `12,005` means `12005` and `0,45` is rejected. Lists saved with commas by older versions still work. |
-| Text alignment | left | Aligns the text inside the monitor area. |
-| Color preset | Custom (Slate colors) | Preserves saved custom colors on upgrade. Named presets: Slate, Charcoal, Warm Graphite, Blue / Amber (dark taskbars), and Porcelain (light taskbars). |
-| Custom colors | Existing color values | Text, gain, and loss colors used when Color preset is Custom. Existing values remain active after upgrading because Custom is the default. Avoid `#FF00FF` in Transparent mode. |
-| Background mode | Transparent | Select Solid to give the monitor its own opaque background. |
-| Background sizing | Monitor area | In Solid mode, Fit text shrinks the background to the longest line and text height with padding (8px horizontally, 3px vertically at 100% scaling). Keeps the configured left/right alignment and updates with prices. |
-| Custom background color | `#1E2633` | Used with Custom in Solid mode. Named presets use their matching backgrounds. Fills the area selected by Background sizing. |
-| Left offset | 8 | Distance from the left edge of the taskbar, in pixels at 100% scaling. |
-| Monitor width | 480 | Width of the monitor area, in pixels at 100% scaling. The area grows if the text is wider. |
-| Refresh interval | 60 | Seconds between fetches. Values below 15 are raised to 15. |
+| **Content** | Symbols, optional entry prices, refresh interval | Pick what to track. Up to 4 symbols, 2 per line; refresh at least every 15 seconds. |
+| **Appearance** | Color preset, Background | Pick a palette, then Transparent, Solid - full area, or Solid - fit text. |
+| Appearance → **Custom colors** | Text, Gain, Loss, Solid background | Used only with Custom. New installs use Slate colors. Empty Text follows the Windows taskbar theme. Avoid `#FF00FF` text colors in Transparent mode. |
+| **Placement** | Text alignment, Left offset, Width | Position the monitor; offsets and width scale with Windows DPI. |
+| **Data source (advanced)** | Price API URL, Price JSON key | Leave unchanged for Yahoo Finance, or configure a different JSON API. |
 
-Changing any setting reloads the mod.
+Changing any setting reloads the mod. The full set has **14 options** in four
+groups, with the four Custom colors in a sub-group. No existing capability was
+removed: the old Background mode and Background sizing are one selector now.
 
-For a compact background, select **Background mode → Solid** and **Background
-sizing → Fit text**. The background hugs both text lines as one rectangle.
-**Monitor width** still defines the alignment area: left alignment keeps the left
-edge fixed, while right alignment keeps the right edge fixed. The height is
-centered and limited to the taskbar height. Transparent mode ignores this setting.
+### Background and placement
 
-### Transparent taskbar themes (DockLike)
+- **Transparent** draws only text.
+- **Solid - full area** fills the monitor width and taskbar height.
+- **Solid - fit text** hugs both lines as one rectangle, following price updates.
+  Padding is 8 pixels horizontally and 3 vertically at 100% scaling. The height
+  is centered and limited to the taskbar height.
 
-Set **Background mode** to **Solid**. Named presets select matching backgrounds;
-with **Custom**, set **Custom background color** to `#1E2633` or another color
-matching your theme. Adjust **Left offset** and **Monitor width** to place
-the background; the area grows if the text needs more room. Clicks still pass
-through to the taskbar.
+Named presets include matching Solid backgrounds. Custom uses its own Solid
+background color. With Fit text, **Placement → Width** still sets the alignment
+area: left alignment fixes the left edge; right alignment fixes the right edge.
+**Left offset + Width** should end before Start to avoid covering task buttons.
+The solid background improves readability with DockLike, but does not reserve
+space in the taskbar or join the dock's background.
 
-The monitor is a child window of the taskbar, positioned by pixel offset. Its
-solid background improves text readability over desktop or window content, but
-does not reserve space in the taskbar layout or join the theme's dock background.
+### Upgrading from flat settings (1.2.x or early 1.3.0)
+
+Grouping changes setting paths, so **Windhawk cannot automatically rename the
+saved values**. Before updating, copy your existing JSON from **Textual mode**
+to `old-settings.json`. Convert it, then paste `grouped-settings.json` into
+Textual mode after updating and save:
+
+```powershell
+python scripts/convert_settings.py old-settings.json -o grouped-settings.json
+```
+
+The converter uses Python's standard library and only reads/writes JSON files.
+It does not modify the registry, running Windhawk or Explorer. It preserves empty
+values, saved colors, custom APIs, placement and comma-formatted entry prices;
+old `solid` + `text` background settings become the new `text` option. It refuses
+to overwrite an existing output file or discard unrecognized settings. It also
+accepts already-grouped nested or dotted JSON.
+
+Without this import, grouped settings use their defaults even if old flat keys
+are still present in storage. A runtime fallback alone would not keep the UI in
+sync, so automatic migration is not claimed.
+
+Example grouped JSON for a Blue / Amber monitor with a fitted solid background:
+
+```json
+{
+  "Content": {
+    "Symbols": "BTC-USD|ETH-USD|AAPL",
+    "EntryPrices": "BTC-USD=60000",
+    "RefreshSeconds": 60
+  },
+  "Appearance": {
+    "Preset": "blue_amber",
+    "Background": "text"
+  },
+  "Placement": {
+    "TextAlign": "left",
+    "LeftOffset": 8,
+    "Width": 480
+  }
+}
+```
 
 ### Example: CoinGecko
 
-- Price API URL: `https://api.coingecko.com/api/v3/simple/price?ids={symbol}&vs_currencies=usd`
-- Price JSON key: `usd`
-- Symbols: `bitcoin|ethereum` (CoinGecko coin ids, not ticker symbols)
-- Entry prices: `bitcoin=60000`
+- **Data source → Price API URL**: `https://api.coingecko.com/api/v3/simple/price?ids={symbol}&vs_currencies=usd`
+- **Data source → Price JSON key**: `usd`
+- **Content → Symbols**: `bitcoin|ethereum`
+- **Content → Entry prices**: `bitcoin=60000`
+
+Entry prices use `SYMBOL=PRICE` pairs separated by `|`. Use `.` for decimals;
+commas are thousands separators (`12,005` means `12005`, while `0,45` is rejected).
+Comma-separated lists from older versions remain supported by the mod.
 
 ## Limitations
 
@@ -93,7 +135,7 @@ does not reserve space in the taskbar layout or join the theme's dock background
 - The monitor is placed by pixel offset, so it assumes the Start button is centered.
   With a left-aligned Start button, the monitor overlaps Start.
 - With many apps open, or a wide monitor area, the monitor can cover part of the task
-  list. Reduce **Monitor width** if that happens.
+  list. Reduce **Placement → Width** if that happens.
 - The default Yahoo Finance endpoint is unofficial and may rate-limit or change. Check
   its terms before heavy use, and change the API URL if needed.
 
