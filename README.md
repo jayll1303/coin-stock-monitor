@@ -51,10 +51,10 @@ stop all requests, disable the mod.
 | Symbols | `BTC-USD\|ETH-USD\|AAPL` | Separated by `\|`, in order. At most 4 symbols, 2 per line. |
 | Entry prices | empty | `SYMBOL=PRICE` pairs separated by `\|`, for example `BTC-USD=60000\|AAPL=300`. Use `.` as the decimal separator. A comma is accepted only as a thousands separator, followed by exactly three digits, so `12,005` means `12005` and `0,45` is rejected. Lists saved with commas by older versions still work. |
 | Text alignment | left | Aligns the text inside the monitor area. |
-| Color preset | Slate | Slate, Charcoal, Warm Graphite, Blue / Amber, Porcelain, or Custom. |
-| Custom colors | Existing color values | Text, gain, and loss colors used when Color preset is Custom. Existing values are preserved; choose Custom after upgrading to reuse customized colors. Avoid `#FF00FF` in Transparent mode. |
+| Color preset | Custom (Slate colors) | Preserves saved custom colors on upgrade. Named presets: Slate, Charcoal, Warm Graphite, Blue / Amber (dark taskbars), and Porcelain (light taskbars). |
+| Custom colors | Existing color values | Text, gain, and loss colors used when Color preset is Custom. Existing values remain active after upgrading because Custom is the default. Avoid `#FF00FF` in Transparent mode. |
 | Background mode | Transparent | Select Solid to give the monitor its own opaque background. |
-| Background color | `#1E2633` | `#RRGGBB` color used in Solid mode. Fills the monitor width and full taskbar height. |
+| Custom background color | `#1E2633` | Used with Custom in Solid mode. Named presets use their matching backgrounds. Fills the monitor width and full taskbar height. |
 | Left offset | 8 | Distance from the left edge of the taskbar, in pixels at 100% scaling. |
 | Monitor width | 480 | Width of the monitor area, in pixels at 100% scaling. The area grows if the text is wider. |
 | Refresh interval | 60 | Seconds between fetches. Values below 15 are raised to 15. |
@@ -63,8 +63,9 @@ Changing any setting reloads the mod.
 
 ### Transparent taskbar themes (DockLike)
 
-Set **Background mode** to **Solid** and **Background color** to `#1E2633` (or a
-color matching your theme). Adjust **Left offset** and **Monitor width** to place
+Set **Background mode** to **Solid**. Named presets select matching backgrounds;
+with **Custom**, set **Custom background color** to `#1E2633` or another color
+matching your theme. Adjust **Left offset** and **Monitor width** to place
 the background; the area grows if the text needs more room. Clicks still pass
 through to the taskbar.
 
