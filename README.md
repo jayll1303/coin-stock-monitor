@@ -77,46 +77,12 @@ space in the taskbar or join the dock's background.
 
 ### Upgrading from flat settings (1.2.x or early 1.3.0)
 
-Grouping changes setting paths, so **Windhawk cannot automatically rename the
-saved values**. Before updating, copy your existing JSON from **Textual mode**
-to `old-settings.json`. Convert it, then paste `grouped-settings.json` into
-Textual mode after updating and save:
-
-```powershell
-python scripts/convert_settings.py old-settings.json -o grouped-settings.json
-```
-
-The converter uses Python's standard library and only reads/writes JSON files.
-It does not modify the registry, running Windhawk or Explorer. It preserves empty
-values, saved colors, custom APIs, placement and comma-formatted entry prices;
-old `solid` + `text` background settings become the new `text` option. It refuses
-to overwrite an existing output file or discard unrecognized settings. It also
-accepts already-grouped nested or dotted JSON.
-
-Without this import, grouped settings use their defaults even if old flat keys
-are still present in storage. A runtime fallback alone would not keep the UI in
-sync, so automatic migration is not claimed.
-
-Example grouped JSON for a Blue / Amber monitor with a fitted solid background:
-
-```json
-{
-  "Content": {
-    "Symbols": "BTC-USD|ETH-USD|AAPL",
-    "EntryPrices": "BTC-USD=60000",
-    "RefreshSeconds": 60
-  },
-  "Appearance": {
-    "Preset": "blue_amber",
-    "Background": "text"
-  },
-  "Placement": {
-    "TextAlign": "left",
-    "LeftOffset": 8,
-    "Width": 480
-  }
-}
-```
+The settings are now grouped into Content, Appearance, Placement and Data source.
+Grouping changes the setting paths, so Windhawk cannot carry the old flat values
+into the new cards automatically. After updating, re-enter your symbols, entry
+prices, colors, background mode, placement and API settings once. The old values
+are not deleted from storage, but the new grouped form uses its own defaults until
+you configure it.
 
 ### Example: CoinGecko
 
