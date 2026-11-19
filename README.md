@@ -52,7 +52,7 @@ collapsing is assumed.
 | --- | --- | --- |
 | **Content** | Symbols, optional entry prices, refresh interval | Pick what to track. Up to 4 symbols, 2 per line; refresh at least every 15 seconds. |
 | **Appearance** | Color preset, Background | Pick a palette, then Transparent, Solid - full area, or Solid - fit text. |
-| Appearance → **Custom colors** | Text, Gain, Loss, Solid background | Used only with Custom. New installs use Slate colors. Empty Text follows the Windows taskbar theme. Avoid `#FF00FF` text colors in Transparent mode. |
+| Appearance → **Custom colors** | Text, Gain, Loss, Solid background | Custom defaults look like Slate. Empty Custom Text follows the Windows taskbar theme; old flat values require re-entry. Avoid `#FF00FF` for Custom text, gain or loss in Transparent mode. |
 | **Placement** | Text alignment, Left offset, Width | Position the monitor; offsets and width scale with Windows DPI. |
 | **Data source (advanced)** | Price API URL, Price JSON key | Leave unchanged for Yahoo Finance, or configure a different JSON API. |
 
@@ -77,12 +77,12 @@ space in the taskbar or join the dock's background.
 
 ### Upgrading from flat settings (1.2.x or early 1.3.0)
 
-The settings are now grouped into Content, Appearance, Placement and Data source.
-Grouping changes the setting paths, so Windhawk cannot carry the old flat values
-into the new cards automatically. After updating, re-enter your symbols, entry
-prices, colors, background mode, placement and API settings once. The old values
-are not deleted from storage, but the new grouped form uses its own defaults until
-you configure it.
+The settings are now nested into Content, Appearance, Placement and Data source.
+Windhawk does not move saved values when setting keys are renamed. After updating,
+re-enter your symbols, entry prices, refresh interval, color/background choices,
+placement and API settings once. Until then the new grouped settings use their
+defaults. Your old flat values remain in Windhawk storage but are not read by this
+version.
 
 ### Example: CoinGecko
 
